@@ -1,0 +1,45 @@
+{
+	"Clients" :
+		{
+			"Client1" :
+					{
+						"AccountID" : "91XXXXXXX656",
+						"Alias" : "Client1"
+					},
+			"Client2" :
+					{
+						"AccountID" : "99XXXXXXX801",
+						"Alias" : "Client2"
+					},
+			"Client3" :
+					{
+						"AccountID" : "44XXXXXXX969",
+						"Alias" : "Client3"
+					},
+			"Client4" :
+					{
+						"AccountID" : "92XXXXXXX460",
+						"Alias" : "Client4"
+					}, 
+			"Client5" :
+					{
+						"AccountID" : "30XXXXXXX970",
+						"Alias" : "Client5"
+					}, 
+			"Client6" :
+					{
+						"AccountID" : "48XXXXXXX852",
+						"Alias" : "Client6"
+					}, 
+			"Client7" :
+					{
+						"AccountID" : "09XXXXXXX552",
+						"Alias" : "Client7"
+					}, 
+			"Client8" :
+					{
+						"AccountID" : "71XXXXXXX397",
+						"Alias" : "Client8"
+					}
+		}
+}
