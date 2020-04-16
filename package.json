@@ -1,10 +1,10 @@
 {
   "name": "aws_multiaccount_federation",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "This package provides cycling federation through aws accounts",
   "main": "federator.js",
   "bin": {
-    "federate": "federator.js"
+    "psylocke": "federator.js"
   },
   "dependencies": {
     "aws-sdk": "^2.441.0",

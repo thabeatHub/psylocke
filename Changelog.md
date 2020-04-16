@@ -13,19 +13,21 @@ Basically MAJOR.MINOR.PATCH and types of Changes:
 - Security in case of vulnerabilities.
 
 ## [Unreleased]
-- Moved federate functions (default) to module
-- Add list instances at least per ID/Name
-- Add filter to list capabilities (just per Name/Tag)
-- Open Remote Console Automation
+
+## v.1.0.1
 
 ### Added
 - Command regions with minimal functionality: List Avaiilable, Set, Get
 - Modules for commands
 - TODO file
 - Changelog File
+- Add list instances at least per ID/Name
+- Add filter to list capabilities (just per Name/Tag)
+- Open Remote Console Automation
 
 ### Changed
 - Global Config File Format: Added available regions
+- Moved federate functions (default) to module
 
 ## v.1.0.0
 
