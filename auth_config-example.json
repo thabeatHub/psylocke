@@ -1,0 +1,18 @@
+{
+	"User" : 
+		{
+			"ExternalID" : "thabeat@gmail.com", //your external id
+			"MFASerial" : "arn:aws:iam::8XXXXXXXXXX0:mfa/thabeat@gmail.com",
+			"MainAccountProfile" : "jump-account-main", //name of the profile with permissions on the main account to jump
+			"MFAProfileName" : "mfa", //name of the profile we are going to use to authenticate via MFA and jump to accounts
+			"FederatedProfileName" : "federated", //name of the profile we are using for federated actions (so we can chain scripts/commands on the console)
+			"FederationRole" : "RoleAdmin"//General Role to jump On
+		},
+	"Uatu" : //experimental feature for automations in instances (controllers, inventories and reports)
+		{
+			"ExternalID" : "uatu", //external id for the instance
+			"MFASerial" : "arn:aws:iam::4XXXXXXXXXXX9:role/MultiAccountFederationRole",//the role for the instance to federate
+			"FederatedProfileName" : "federated", //the name for the federation profile
+			"FederationRole" : "RoleRead"//general role to jump on (start with readonly)
+		}
+}
