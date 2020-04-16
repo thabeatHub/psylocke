@@ -7,9 +7,10 @@ var clients_config = require(global_config.Clients.clients_config_file);
 
 //Custom Libraries
 // const selectRegion = require('./extensions/select-region');
-process.env.AWS_SDK_LOAD_CONFIG=true;
-process.env.AWS_PROFILE=auth_config.User.FederatedProfileName;
+process.env.AWS_SDK_LOAD_CONFIG=1;
+process.env.AWS_PROFILE=auth_config.User.MFAProfileName;
 process.env.AWS_CONFIG_FILE=global_config.UserConfig.aws_cli_config_file;
+
 
 //External Libraries
 const fs = require('fs');

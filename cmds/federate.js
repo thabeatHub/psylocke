@@ -8,18 +8,18 @@ var clients_config = require(global_config.Clients.clients_config_file);
 const { execSync } = require('child_process');
 const { spawnSync } = require('child_process');
 
-process.env.AWS_SDK_LOAD_CONFIG=true;
-process.env.AWS_PROFILE=auth_config.User.FederatedProfileName;
-process.env.AWS_CONFIG_FILE=global_config.UserConfig.aws_cli_config_file;
 
 const fs = require('fs');
 const AWS = require('aws-sdk');
 
-var credentials = new AWS.SharedIniFileCredentials({profile: auth_config.User.MFAProfileName});
+var credentials = new AWS.SharedIniFileCredentials({
+  profile: auth_config.User.MFAProfileName
+});
 AWS.config.credentials = credentials;
 AWS.config.region = 'eu-west-1'
 
 function awsConfigureSetExec(param, data){
+  //console.log('Setting: ' + param + ' to ' + data);
   const child = spawnSync('aws', 
           ['configure', 'set', param, data, '--profile', auth_config.User.FederatedProfileName], 
           { 
@@ -42,6 +42,7 @@ function listClients(){
 }
 
 function federateToAccount(account_alias, callback){
+  //console.log(credentials);
   var sts = new AWS.STS();
   sts.assumeRole( {
     DurationSeconds: 3600, 
@@ -50,6 +51,7 @@ function federateToAccount(account_alias, callback){
     RoleSessionName: "AUTO-FEDERATED-"+auth_config.User.ExternalID
    }, function (err, data) {
     if (err){
+      console.log('Error in federateToAccount!')
       console.log(err, err.stack); // an error occurred
       return process.exit(1);
     }else{    
