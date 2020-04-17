@@ -12,11 +12,6 @@ const { spawnSync } = require('child_process');
 const fs = require('fs');
 const AWS = require('aws-sdk');
 
-var credentials = new AWS.SharedIniFileCredentials({
-  profile: auth_config.User.MFAProfileName
-});
-AWS.config.credentials = credentials;
-AWS.config.region = 'eu-west-1'
 
 function awsConfigureSetExec(param, data){
   //console.log('Setting: ' + param + ' to ' + data);
@@ -42,7 +37,11 @@ function listClients(){
 }
 
 function federateToAccount(account_alias, callback){
-  //console.log(credentials);
+  var credentials = new AWS.SharedIniFileCredentials({
+    profile: auth_config.User.MFAProfileName
+  });
+  AWS.config.credentials = credentials;
+  // console.log(credentials);
   var sts = new AWS.STS();
   sts.assumeRole( {
     DurationSeconds: 3600, 
@@ -67,6 +66,11 @@ function federateToAccount(account_alias, callback){
 }
 
 function federateToAccountID(account_id, callback){
+  var credentials = new AWS.SharedIniFileCredentials({
+    profile: auth_config.User.MFAProfileName
+  });
+  AWS.config.credentials = credentials;
+  // console.log(credentials);
   var sts = new AWS.STS();
   sts.assumeRole( {
     DurationSeconds: 3600, 
@@ -107,6 +111,11 @@ function executeCommand(command){
 }
 
 function federateAndExecute(account_alias, command){
+  var credentials = new AWS.SharedIniFileCredentials({
+    profile: auth_config.User.MFAProfileName
+  });
+  AWS.config.credentials = credentials;
+  // console.log(credentials);
   var sts = new AWS.STS();
   sts.assumeRole( {
     DurationSeconds: 3600, 

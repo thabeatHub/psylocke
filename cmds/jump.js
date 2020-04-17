@@ -1,4 +1,4 @@
-// regions.js
+// jump.js
 //=================
 
 var global_config = require('../config.json');
