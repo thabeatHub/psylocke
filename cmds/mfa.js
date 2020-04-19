@@ -8,7 +8,7 @@ var clients_config = require(global_config.Clients.clients_config_file);
 const { execSync } = require('child_process');
 const { spawnSync } = require('child_process');
 
-
+const prompt = require('prompt');
 const fs = require('fs');
 const AWS = require('aws-sdk');
 
@@ -35,7 +35,7 @@ function getSessionTokenForMFA(mfatoken){
     profile: auth_config.User.MainAccountProfile
   });
   AWS.config.credentials = credentials;
-  console.log(credentials);
+  // console.log(credentials);
   var sts = new AWS.STS();
   sts.getSessionToken( {
     DurationSeconds: 3600, 
@@ -80,10 +80,29 @@ exports.builder = function(yargs){
 
 exports.handler = function (argv) {
   // do something with argv.
-  console.log(argv);
+  //console.log(argv);
   if ( (Object.keys(argv).length<3) ){
     //show help on empty command
-    console.log("Test MFA!")    
+    prompt.message = 'Input your MFA token'
+    prompt.delimiter = ' '
+    prompt.colors = false;
+    prompt.start();
+
+    prompt.get([{
+      properties: {
+        tokeninput: {
+          message: '===>',
+          required: true
+        } 
+      }
+    }], function (err, result) {
+        if (err) { 
+          console.log(err);
+          return process.exit(1); 
+        }
+        console.log("Attempting to get session with mfatoken: " + result.tokeninput);
+        getSessionTokenForMFA(result.tokeninput);
+    });   
    
   }
   if (argv.mfatoken){
