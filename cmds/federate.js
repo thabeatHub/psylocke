@@ -11,6 +11,7 @@ const { spawnSync } = require('child_process');
 
 const fs = require('fs');
 const AWS = require('aws-sdk');
+const yargs = require('yargs');
 
 
 function awsConfigureSetExec(param, data){
@@ -187,11 +188,10 @@ exports.builder = function(yargs){
 }
 
 exports.handler = function (argv) {
-  // do something with argv.
-  
+  // do something with argv
   //console.log(argv);
   //console.log(Object.keys(argv).length);
-  if ( !argv._[0] && (Object.keys(argv).length<3) ) { //show help on empty command
+  if ( (Object.keys(argv).length<3) ) { //show help on empty command
     yargs.showHelp();
     //console.log(Object.keys(argv).length)
   }

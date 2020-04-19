@@ -25,8 +25,7 @@ const { spawnSync } = require('child_process');
 // stderr is sent to stderr of parent process
 // you can set options.stdio if you want it to go elsewhere
 
-// var credentials = new AWS.SharedIniFileCredentials({profile: auth_config.User.MFAProfileName});
-// AWS.config.credentials = credentials;
-
-//console.log(argv);
-//console.log(JSON.stringify(auth_config, null , ' '));
+if ( !argv._[0] && (Object.keys(argv).length<3) ) { //show help on empty command
+  yargs.showHelp();
+  //console.log(Object.keys(argv).length)
+}
