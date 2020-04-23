@@ -22,7 +22,6 @@
   - Mark instances with SSM availability
   - Other Filter Capabilities
 * Add Linux/Windows differentiation
-* Open Port Forwarding Automation
 * Execute Command Locally on Instance Vía SSM
 
 ## Region Features

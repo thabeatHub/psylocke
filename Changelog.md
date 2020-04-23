@@ -14,6 +14,12 @@ Basically MAJOR.MINOR.PATCH and types of Changes:
 
 ## [Unreleased]
 
+### Added
+- Now jump command can tunnel ports
+
+### Fixed
+- Region in SDK is retrieved from CLI config EXPLICITLY in jump command
+
 ## v.1.0.1
 
 ### Added
