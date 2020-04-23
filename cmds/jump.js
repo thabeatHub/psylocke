@@ -10,7 +10,6 @@ const { spawnSync } = require('child_process');
 
 // process.env.AWS_SDK_LOAD_CONFIG=true;
 // process.env.AWS_PROFILE=auth_config.User.FederatedProfileName;
-process.env.AWS_CONFIG_FILE='/Users/thabeat/.aws/config';
 
 const AWS = require('aws-sdk');
 
