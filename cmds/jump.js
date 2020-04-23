@@ -55,7 +55,6 @@ function awsConnectToInstance(instanceid){
 }
 
 function awsTunnelToInstance(instanceid, localport, destinationport){
-  console.log(instanceid);
   const child = spawnSync('aws', 
                       ['ssm', 'start-session', '--target', instanceid,'--document-name AWS-StartPortForwardingSession --parameters \'{\"portNumber\":[\"' + destinationport + '\"], \"localPortNumber\":[\"' + localport + '\"]}\'', '--profile', auth_config.User.FederatedProfileName], 
           { 
@@ -253,7 +252,6 @@ exports.handler = function (argv) {
   // console.log(argv);
   if(argv.instanceid){
     if( argv.destinationport!=null || argv.localport!=null ){
-      console.log('PORT');
       awsTunnelToInstance(argv.instanceid, argv.localport, argv.destinationport);
     }
     else{
