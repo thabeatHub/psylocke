@@ -8,11 +8,11 @@ var clients_config = require(global_config.Clients.clients_config_file);
 const { execSync } = require('child_process');
 const { spawnSync } = require('child_process');
 
-
 const fs = require('fs');
 const AWS = require('aws-sdk');
 const yargs = require('yargs');
-
+const inquirer = require('inquirer');
+//const { options } = require('yargs');
 
 function awsConfigureSetExec(param, data){
   //console.log('Setting: ' + param + ' to ' + data);
@@ -31,10 +31,14 @@ function awsConfigureSetExec(param, data){
         if(child.stderr) console.log('stderr ', child.stderr);
 }
 
-function listClients(){
+function listClients(print = false){
+  var options = []
   for(client in clients_config.Clients){
-      console.log(client+' -> '+clients_config.Clients[client].AccountID);  
+      if (print) console.log(client+' -> '+clients_config.Clients[client].AccountID);  
+      options.push( { name: client, value: clients_config.Clients[client].AccountID });
+      //options.push(client);
   }
+  return options;
 }
 
 function federateToAccount(account_alias, callback){
@@ -153,6 +157,11 @@ exports.builder = function(yargs){
         desc: 'List all available Clients',
         type: 'boolean'
       },
+      'select': {
+        alias: 's',
+        desc: 'Menu Select Client',
+        type: 'boolean'
+      },
       'account': {
         alias: ['a', 'accountalias'],
         desc: 'Receives account alias. Federate on an account by [account alias].',
@@ -196,8 +205,31 @@ exports.handler = function (argv) {
     //console.log(Object.keys(argv).length)
   }
   if(argv.list){
-    listClients();
+    listClients(true);
     return process.exit(0);
+  };
+  if(argv.select){
+    var choices = listClients(false);    
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          loop: false,
+          name: 'id',
+          message: 'Select an Account:',
+          choices
+        }
+      ])
+        .then( (answer) => {
+          //console.log(JSON.stringify(answer, null, '  '));
+          //console.log(answer.id);
+          console.log('Getting Credentials for:', answer.id);
+          federateToAccountID(answer.id);
+        })
+        .catch(() => {
+          console.error;
+          //return process.exit(0);
+        });
   };
   if(argv.account){
     //console.log(argv.accountalias);
