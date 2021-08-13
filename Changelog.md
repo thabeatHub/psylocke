@@ -16,6 +16,9 @@ Basically MAJOR.MINOR.PATCH and types of Changes:
 
 ### Added
 - Now jump command can tunnel ports
+- (-s) option enters in an interactive list
+- Now custom Role can be specified on the Clients Config with role_name
+- Interactive list is searchable
 
 ### Fixed
 - Region in SDK is retrieved from CLI config EXPLICITLY in jump command

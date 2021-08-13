@@ -12,6 +12,8 @@ const fs = require('fs');
 const AWS = require('aws-sdk');
 const yargs = require('yargs');
 const inquirer = require('inquirer');
+const { choices } = require('yargs');
+inquirer.registerPrompt('search-list', require('inquirer-search-list'));
 //const { options } = require('yargs');
 
 function awsConfigureSetExec(param, data){
@@ -51,7 +53,7 @@ function federateToAccount(account_alias, callback){
   sts.assumeRole( {
     DurationSeconds: 3600, 
     ExternalId: auth_config.User.ExternalID,
-    RoleArn: "arn:aws:iam::"+clients_config.Clients[account_alias].AccountID+":role/"+auth_config.User.FederationRole, 
+    RoleArn: "arn:aws:iam::"+clients_config.Clients[account_alias].AccountID+":role/"+'role_nome' in clients_config.Clients[account_alias] ? clients_config.Clients[account_alias].AccountRole : auth_config.User.FederationRole, 
     RoleSessionName: "AUTO-FEDERATED-"+auth_config.User.ExternalID
    }, function (err, data) {
     if (err){
@@ -71,16 +73,27 @@ function federateToAccount(account_alias, callback){
 }
 
 function federateToAccountID(account_id, callback){
+  //console.log(account_id);
   var credentials = new AWS.SharedIniFileCredentials({
     profile: auth_config.User.MFAProfileName
   });
+  var account_alias;
   AWS.config.credentials = credentials;
-  // console.log(credentials);
+  //console.log(credentials);
+  Object.keys(clients_config.Clients).forEach(element => {
+    //console.log(clients_config.Clients[element].AccountID+ " is equal to " + account_id )
+    account_alias = clients_config.Clients[element].AccountID === account_id ? element : account_alias;
+    //console.log(account_alias);
+  });
+  console.log(account_alias);
+  console.log("Attempting federation with AccountID");
   var sts = new AWS.STS();
+  RoleName = 'role_name' in clients_config.Clients[account_alias] ? clients_config.Clients[account_alias].role_name : auth_config.User.FederationRole;
+  console.log("Using " + RoleName + " to federate.");
   sts.assumeRole( {
     DurationSeconds: 3600, 
     ExternalId: auth_config.User.ExternalID,
-    RoleArn: "arn:aws:iam::"+account_id+":role/"+auth_config.User.FederationRole, 
+    RoleArn: "arn:aws:iam::" + account_id + ":role/" + RoleName,
     RoleSessionName: "AUTO-FEDERATED-"+auth_config.User.ExternalID
    }, function (err, data) {
     if (err){
@@ -209,11 +222,11 @@ exports.handler = function (argv) {
     return process.exit(0);
   };
   if(argv.select){
-    var choices = listClients(false);    
+    var choices = listClients(false); 
     inquirer
       .prompt([
         {
-          type: 'list',
+          type: 'search-list',
           loop: false,
           name: 'id',
           message: 'Select an Account:',
@@ -259,4 +272,3 @@ exports.handler = function (argv) {
     });
   };
 }
-
