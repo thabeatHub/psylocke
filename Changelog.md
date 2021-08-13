@@ -22,6 +22,8 @@ Basically MAJOR.MINOR.PATCH and types of Changes:
 
 ### Fixed
 - Region in SDK is retrieved from CLI config EXPLICITLY in jump command
+- Dest_Port and Local_Port description now in help
+- Help is not duplicated anymore
 
 ## v.1.0.1
 

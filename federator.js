@@ -26,6 +26,6 @@ const { spawnSync } = require('child_process');
 // you can set options.stdio if you want it to go elsewhere
 
 if ( !argv._[0] && (Object.keys(argv).length<3) ) { //show help on empty command
-  yargs.showHelp();
+  //yargs.showHelp();
   //console.log(Object.keys(argv).length)
 }

@@ -220,24 +220,24 @@ exports.builder = function(yargs){
       'totarget': {
         alias: 'tt',
         desc: 'jumps to specific target by name tag',
-        type: 'string'
+        type: 'string',
       },
       'listinstances': {
         alias: 'li',
         desc: 'lists instances by name tag',
-        type: 'string'
+        type: 'string',
       },
-      'destinationport': {
+      'dest_port': {
         alias: ['dp', 'destport'],
         desc: 'port to connect to in destination instance',
         type: 'number',
-        implies: ['destinationport', 'localport']
+        implies: ['dest_port', 'local_port'],
       },
-      'localport': {
+      'local_port': {
         alias: ['lp', 'localport'],
         desc: 'port in local machine to map to destination',
         type: 'number',
-        implies: ['localport', 'destinationport']
+        implies: ['local_port', 'dest_port'],
       },
     })
     .help('h')
@@ -251,23 +251,23 @@ exports.handler = function (argv) {
   // console.log(argv);
   if(argv.instanceid){
     if( argv.destinationport!=null || argv.localport!=null ){
-      awsTunnelToInstance(argv.instanceid, argv.localport, argv.destinationport);
+      awsTunnelToInstance(argv.instanceid, argv.local_port, argv.dest_port);
     }
     else{
       awsConnectToInstance(argv.instanceid);
     }
-  }
+  };
   if(argv.totarget !== null ){
-    if( argv.destinationport!=null || argv.localport!=null ){
-      awsTunnelToInstanceByName(argv.totarget, argv.localport, argv.destinationport);
+    if( argv.dest_port!=null || argv.local_port!=null ){
+      awsTunnelToInstanceByName(argv.totarget, argv.local_port, argv.dest_port);
     }
     else{
       awsConnectToInstanceByName(argv.totarget);
     }
-  }
+  };
   if(argv.listinstaces !== null){
     //console.log("List Instances!");
     awsListInstances(argv.listinstances);
-  }
+  };
 }
 
