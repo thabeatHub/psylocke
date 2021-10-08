@@ -50,10 +50,11 @@ function federateToAccount(account_alias, callback){
   AWS.config.credentials = credentials;
   // console.log(credentials);
   var sts = new AWS.STS();
+  console.log("arn:aws:iam::" + clients_config.Clients[account_alias].AccountID + ":role/" + ('role_name' in clients_config.Clients[account_alias] ? auth_config.User.FederationRole : clients_config.Clients[account_alias].AccountRole ));
   sts.assumeRole( {
     DurationSeconds: 3600, 
     ExternalId: auth_config.User.ExternalID,
-    RoleArn: "arn:aws:iam::"+clients_config.Clients[account_alias].AccountID+":role/"+'role_nome' in clients_config.Clients[account_alias] ? clients_config.Clients[account_alias].AccountRole : auth_config.User.FederationRole, 
+    RoleArn: "arn:aws:iam::" + clients_config.Clients[account_alias].AccountID + ":role/" + ('role_name' in clients_config.Clients[account_alias] ? auth_config.User.FederationRole : clients_config.Clients[account_alias].AccountRole ), 
     RoleSessionName: "AUTO-FEDERATED-"+auth_config.User.ExternalID
    }, function (err, data) {
     if (err){
