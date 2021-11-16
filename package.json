@@ -7,7 +7,7 @@
     "psylocke": "federator.js"
   },
   "dependencies": {
-    "aws-sdk": "^2.441.0",
+    "aws-sdk": "^2.814.0",
     "chalk": "^4.1.1",
     "enquirer": "^2.3.6",
     "inquirer": "^8.1.0",
