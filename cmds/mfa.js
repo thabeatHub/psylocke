@@ -38,7 +38,7 @@ function getSessionTokenForMFA(mfatoken){
   // console.log(credentials);
   var sts = new AWS.STS();
   sts.getSessionToken( {
-    DurationSeconds: 3600, 
+    DurationSeconds: 43200, 
     SerialNumber: auth_config.User.MFASerial, 
     TokenCode: mfatoken
    }, function (err, data) {
